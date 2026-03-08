@@ -19,9 +19,9 @@ from typing import Dict, Any, Optional
 import pandas as pd
 import yaml
 
-from . import data_fetcher
-from . import data_filter
-from . import ai_analyzer
+from .scripts import data_fetcher
+from .scripts import data_filter
+from .scripts import ai_analyzer
 
 
 def load_config(config_path: Optional[str] = None) -> Dict[str, Any]:
