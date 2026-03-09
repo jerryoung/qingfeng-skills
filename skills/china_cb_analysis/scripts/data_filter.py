@@ -40,7 +40,7 @@ def filter_cb_data(
 
     # 1. 排除已公告强赎的转债
     if config.get("exclude_redeem", True) and redeem_codes:
-        filtered = filtered[~filtered["转债代码"].isin(redeem_codes)]
+        filtered = filtered[~filtered["代码"].isin(redeem_codes)]
         print(f"排除 {len(redeem_codes)} 只已公告强赎的转债")
 
     # 2. 排除剩余规模过大的转债

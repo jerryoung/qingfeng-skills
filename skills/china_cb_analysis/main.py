@@ -66,13 +66,13 @@ def format_market_index(index_df: pd.DataFrame) -> str:
         return "市场指数数据获取失败"
 
     return f"""
-- 指数代码：{latest.get('指数代码', 'N/A')}
-- 指数名称：{latest.get('指数名称', 'N/A')}
-- 收盘点位：{latest.get('收盘', 'N/A')}
-- 涨跌幅：{latest.get('涨跌幅', 'N/A')}%
-- 开盘：{latest.get('开盘', 'N/A')}
-- 最高：{latest.get('最高', 'N/A')}
-- 最低：{latest.get('最低', 'N/A')}
+- 指数点位：{latest.get('idx_price', 'N/A')}
+- 涨跌幅：{latest.get('idx_increase_rt', 'N/A')}%
+- 均价：{latest.get('price', 'N/A')}
+- 中位数价格：{latest.get('mid_price', 'N/A')}
+- 平均溢价率：{latest.get('avg_premium_rt', 'N/A')}%
+- 中位数溢价率：{latest.get('mid_premium_rt', 'N/A')}%
+- 市场温度：{latest.get('temperature', 'N/A')}
 """
 
 
@@ -135,7 +135,7 @@ def run_analysis(
     # 获取强赎数据
     print("  - 获取强赎数据...")
     redeem_df = data_fetcher.get_cb_redeem_data()
-    redeem_codes = set(redeem_df["转债代码"].tolist()) if not redeem_df.empty else set()
+    redeem_codes = set(redeem_df["代码"].tolist()) if not redeem_df.empty else set()
 
     print(f"\n  市场数据获取完成:")
     print(f"  - 可转债总数：{len(cb_data)}")

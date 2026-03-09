@@ -77,11 +77,11 @@ class AIAnalyzer:
         """格式化候选标的信息"""
         lines = []
         for i, c in enumerate(candidates, 1):
-            line = f"{i}. {c.get('转债代码', '')} {c.get('转债名称', '')} | "
+            line = f"{i}. {c.get('代码', '')} {c.get('转债名称', '')} | "
             line += f"价格：{c.get('现价', 'N/A')} | "
             line += f"溢价率：{c.get('转股溢价率', 'N/A')}% | "
             line += f"余额：{c.get('剩余规模', 'N/A')} 亿 | "
-            line += f"正股：{c.get('正股名称', 'N/A')} ({c.get('正股涨幅', 'N/A')}%)"
+            line += f"正股：{c.get('正股名称', 'N/A')} ({c.get('正股涨跌', 'N/A')}%)"
             lines.append(line)
         return "\n".join(lines)
 
