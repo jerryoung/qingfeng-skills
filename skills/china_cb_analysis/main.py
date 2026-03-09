@@ -29,13 +29,27 @@ def load_config(config_path: Optional[str] = None) -> Dict[str, Any]:
     加载配置文件
 
     Args:
-        config_path: 配置文件路径，默认使用当前目录下的 config.yaml
+        config_path: 配置文件路径，默认按以下顺序查找：
+                     1. 指定的 config_path
+                     2. 当前目录下的 config.yaml
+                     3. 当前目录下的 config.yaml.local
 
     Returns:
         Dict: 配置字典
     """
     if config_path is None:
-        config_path = os.path.join(os.path.dirname(__file__), "config.yaml")
+        base_dir = os.path.dirname(__file__)
+        # 优先使用 config.yaml（本地配置，应在 .gitignore 中）
+        config_path = os.path.join(base_dir, "config.yaml")
+        if not os.path.exists(config_path):
+            # 回退到 config.yaml.local
+            config_path = os.path.join(base_dir, "config.yaml.local")
+
+    if not os.path.exists(config_path):
+        raise FileNotFoundError(
+            f"配置文件不存在：{config_path}\n"
+            f"请复制 config.example.yaml 并填写配置"
+        )
 
     with open(config_path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
