@@ -135,7 +135,12 @@ def run_analysis(
     # 获取强赎数据
     print("  - 获取强赎数据...")
     redeem_df = data_fetcher.get_cb_redeem_data()
-    redeem_codes = set(redeem_df["代码"].tolist()) if not redeem_df.empty else set()
+    # 只过滤已公告强赎的转债
+    if not redeem_df.empty and "强赎状态" in redeem_df.columns:
+        redeem_status_df = redeem_df[redeem_df["强赎状态"] == "已公告强赎"]
+        redeem_codes = set(redeem_status_df["代码"].tolist())
+    else:
+        redeem_codes = set()
 
     print(f"\n  市场数据获取完成:")
     print(f"  - 可转债总数：{len(cb_data)}")
