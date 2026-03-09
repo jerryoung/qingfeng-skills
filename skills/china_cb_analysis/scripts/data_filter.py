@@ -43,7 +43,12 @@ def filter_cb_data(
         filtered = filtered[~filtered["代码"].isin(redeem_codes)]
         print(f"排除 {len(redeem_codes)} 只已公告强赎的转债")
 
-    # 2. 排除剩余规模过大的转债
+    # 2. 排除退市转债（名称包含"退"字的）
+    if "转债名称" in filtered.columns:
+        filtered = filtered[~filtered["转债名称"].str.contains("退", case=False, na=False)]
+        print("排除退市转债")
+
+    # 3. 排除剩余规模过大的转债
     max_size = config.get("max_remaining_size", 50)
     if "剩余规模" in filtered.columns:
         filtered = filtered[filtered["剩余规模"] <= max_size]
