@@ -38,6 +38,11 @@ def filter_cb_data(
 
     filtered = cb_data.copy()
 
+    # 0. 排除未上市的转债（成交额为 0 表示未上市交易）
+    if "成交额" in filtered.columns:
+        filtered = filtered[filtered["成交额"] > 0]
+        print("排除未上市转债（成交额为 0）")
+
     # 1. 排除已公告强赎的转债
     if config.get("exclude_redeem", True) and redeem_codes:
         filtered = filtered[~filtered["代码"].isin(redeem_codes)]
