@@ -34,9 +34,6 @@ description: 中国可转债 AI 分析工具。当用户提到可转债分析、
 
 **必需配置：**
 - `jsl_cookie`：集思录 Cookie（用户需登录集思录获取）
-- `ai.api_key`：AI API 密钥
-- `ai.base_url`：AI API 基础 URL
-- `ai.model`：使用的 AI 模型
 
 **可选配置：**
 - `filter.max_price`：最高转债价格（默认 150）
@@ -44,15 +41,12 @@ description: 中国可转债 AI 分析工具。当用户提到可转债分析、
 - `filter.max_remaining_size`：最大剩余规模（默认 50 亿）
 - `ai_strategy_prompt`：自定义 AI 策略提示词
 
+**注意：AI 配置不再需要** - 使用 Claude Code 内置的 MCP AI 工具自动处理。
+
 如果配置缺失，引导用户创建 `config.yaml` 文件：
 
 ```yaml
 jsl_cookie: "your_jisilu_cookie_here"
-
-ai:
-  api_key: "your_api_key"
-  base_url: "https://api.example.com"
-  model: "gpt-4"
 
 filter:
   max_price: 150

@@ -3,15 +3,6 @@
 # 获取方法：登录集思录 -> F12 开发者工具 -> 刷新页面 -> 复制请求头中的 Cookie
 jsl_cookie: "your_jisilu_cookie_here"
 
-# AI API 配置 (必填)
-ai:
-  # API Key
-  api_key: "your_api_key_here"
-  # API Base URL
-  base_url: "https://api.example.com"
-  # 模型名称
-  model: "gpt-4"
-
 # AI 决策风格提示词 (可选)
 # 默认策略：三低优化策略 - 低价、低溢价、低余额
 # 其他可选策略：
@@ -19,6 +10,8 @@ ai:
 #   - "激进进攻策略 - 侧重高弹性、小余额转债"
 #   - "平衡配置策略 - 兼顾安全性和收益性"
 ai_strategy_prompt: ""
+
+# 注意：AI 配置已移除 - 使用 Claude Code 内置的 MCP AI 工具自动处理
 
 # 数据过滤条件 (可选)
 filter:

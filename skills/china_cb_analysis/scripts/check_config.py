@@ -4,6 +4,8 @@
 
 使用方法:
     python scripts/check_config.py [--config PATH]
+
+注意：AI 配置不再需要，使用 MCP AI 工具自动处理
 """
 
 import os
@@ -35,26 +37,6 @@ def check_cookie(cookie: str) -> tuple:
     if len(cookie) < 20:
         return False, "Cookie 格式可能不正确（太短）"
     return True, "Cookie 格式正确"
-
-
-def check_ai_config(ai_config: dict) -> tuple:
-    """检查 AI 配置"""
-    if not ai_config:
-        return False, "AI 配置缺失"
-
-    required_fields = ["api_key", "base_url", "model"]
-    missing = [f for f in required_fields if f not in ai_config]
-
-    if missing:
-        return False, f"缺少必要字段：{', '.join(missing)}"
-
-    if not ai_config["api_key"]:
-        return False, "API Key 为空"
-
-    if not ai_config["base_url"].startswith("http"):
-        return False, "Base URL 格式不正确"
-
-    return True, "AI 配置正确"
 
 
 def check_filter_config(filter_config: dict) -> tuple:
@@ -100,11 +82,6 @@ def main():
         print("""
 jsl_cookie: "your_jisilu_cookie_here"
 
-ai:
-  api_key: "your_api_key"
-  base_url: "https://api.example.com"
-  model: "gpt-4"
-
 filter:
   max_price: 150
   max_premium_ratio: 50
@@ -129,22 +106,8 @@ filter:
         all_valid = False
     print()
 
-    # 2. 检查 AI 配置
-    print("[2] AI 配置")
-    ai_config = config.get("ai", {})
-    valid, msg = check_ai_config(ai_config)
-    if valid:
-        print(f"    ✓ {msg}")
-        print(f"    - API Key: {ai_config['api_key'][:10]}...")
-        print(f"    - Base URL: {ai_config['base_url']}")
-        print(f"    - Model: {ai_config['model']}")
-    else:
-        print(f"    ❌ {msg}")
-        all_valid = False
-    print()
-
-    # 3. 检查过滤配置
-    print("[3] 过滤配置")
+    # 2. 检查过滤配置
+    print("[2] 过滤配置")
     filter_config = config.get("filter", {})
     valid, msg = check_filter_config(filter_config)
     if valid:
@@ -160,7 +123,7 @@ filter:
         all_valid = False
     print()
 
-    # 4. 检查自定义策略提示词
+    # 3. 检查自定义策略提示词
     strategy_prompt = config.get("ai_strategy_prompt", "")
     if strategy_prompt:
         print("[4] 自定义策略提示词")
