@@ -6,7 +6,7 @@
 
 - 📊 **实时数据获取**: 从集思录获取可转债实时数据、强赎数据、转股价格调整记录
 - 🔍 **智能过滤**: 根据预设条件（价格、溢价率、余额等）自动过滤候选标的
-- 🤖 **AI 决策**: 基于 AI 大模型进行深度分析，生成投资建议
+- 🤖 **AI 决策**: 使用 Claude Code 内置的 MCP AI 工具进行深度分析，生成投资建议
 - 📝 **报告输出**: 支持 JSON 和 Markdown 格式的分析报告
 
 ## 安装
@@ -23,15 +23,22 @@ pip install -r requirements.txt
 # 集思录 Cookie (必填)
 jsl_cookie: "your_cookie_here"
 
-# AI API 配置 (必填)
-ai:
-  api_key: "your_api_key"
-  base_url: "https://api.example.com"
-  model: "gpt-4"
-
 # AI 决策风格提示词 (可选)
+# 默认策略：三低优化策略 - 低价、低溢价、低余额
+# 其他可选策略：
+#   - "稳健防守策略 - 侧重高 AAA 评级、低价格转债"
+#   - "激进进攻策略 - 侧重高弹性、小余额转债"
+#   - "平衡配置策略 - 兼顾安全性和收益性"
 ai_strategy_prompt: ""
+
+# 数据过滤条件 (可选)
+filter:
+  max_remaining_size: 50  # 最大剩余规模 (亿元)
+  max_price: 150          # 最高转债价格 (元)
+  max_premium_ratio: 50   # 最高溢价率 (%)
 ```
+
+**注意：AI 配置已移除** - 使用 Claude Code 内置的 MCP AI 工具自动处理，无需手动配置 API Key。
 
 ### 获取集思录 Cookie
 
@@ -73,7 +80,7 @@ result = run_analysis(
 ## 工作流程
 
 ```
-1. 加载配置 → 2. 获取市场数据 → 3. 条件过滤 → 4. AI 分析 → 5. 输出报告
+1. 加载配置 → 2. 获取市场数据 → 3. 条件过滤 → 4. AI 分析 (MCP) → 5. 输出报告
 ```
 
 ### 过滤条件
@@ -130,8 +137,9 @@ AI 分析报告
 
 - akshare: 金融数据获取
 - pandas: 数据处理
-- openai: AI API 调用
 - pyyaml: 配置解析
+
+**AI 调用**: 使用 Claude Code 内置的 MCP AI 工具，无需额外配置。
 
 ## 风险提示
 
