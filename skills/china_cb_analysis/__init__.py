@@ -139,13 +139,17 @@ def run_analysis(
     # 获取强赎数据
     print("  - 获取强赎数据...")
     redeem_df = data_fetcher.get_cb_redeem_data()
-    # 过滤所有强赎相关的转债（包括已公告、公告要强赎、已满足条件等）
-    if not redeem_df.empty and "强赎状态" in redeem_df.columns:
-        # 只过滤有强赎风险的转债（不包括空值和"公告不强赎"）
+    # 过滤所有强赎相关的转债
+    # redeem_icon 字段表示强赎状态：
+    # - "1": 已公告强赎
+    # - "2": 公告要强赎
+    # - "3": 已满足强赎条件
+    if not redeem_df.empty and "redeem_icon" in redeem_df.columns:
+        # 只过滤有强赎风险的转债
         redeem_status_df = redeem_df[
-            redeem_df["强赎状态"].isin(["已公告强赎", "公告要强赎", "已满足强赎条件"])
+            redeem_df["redeem_icon"].isin(["1", "2", "3"])
         ]
-        redeem_codes = set(redeem_status_df["代码"].tolist())
+        redeem_codes = set(redeem_status_df["bond_id"].tolist())
     else:
         redeem_codes = set()
 

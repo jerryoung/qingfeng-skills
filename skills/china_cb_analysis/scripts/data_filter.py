@@ -2,6 +2,7 @@
 数据过滤模块
 
 根据预设条件过滤候选转债标的
+使用集思录原始英文字段名
 """
 
 import pandas as pd
@@ -39,42 +40,42 @@ def filter_cb_data(
     filtered = cb_data.copy()
 
     # 0. 排除未上市的转债（成交额为 0 表示未上市交易）
-    if "成交额" in filtered.columns:
-        filtered = filtered[filtered["成交额"] > 0]
+    if "volume" in filtered.columns:
+        filtered = filtered[filtered["volume"] > 0]
         print("排除未上市转债（成交额为 0）")
 
     # 1. 排除已公告强赎的转债
     if config.get("exclude_redeem", True) and redeem_codes:
-        filtered = filtered[~filtered["代码"].isin(redeem_codes)]
+        filtered = filtered[~filtered["bond_id"].isin(redeem_codes)]
         print(f"排除 {len(redeem_codes)} 只已公告强赎的转债")
 
     # 2. 排除退市转债（名称包含"退"字的）
-    if "转债名称" in filtered.columns:
-        filtered = filtered[~filtered["转债名称"].str.contains("退", case=False, na=False)]
+    if "bond_nm" in filtered.columns:
+        filtered = filtered[~filtered["bond_nm"].str.contains("退", case=False, na=False)]
         print("排除退市转债")
 
     # 3. 排除剩余规模过大的转债
     max_size = config.get("max_remaining_size", 50)
-    if "剩余规模" in filtered.columns:
-        filtered = filtered[filtered["剩余规模"] <= max_size]
+    if "curr_iss_amt" in filtered.columns:
+        filtered = filtered[filtered["curr_iss_amt"] <= max_size]
         print(f"排除剩余规模 > {max_size} 亿的转债")
 
     # 3. 排除价格过高的转债
     max_price = config.get("max_price", 150)
-    if "现价" in filtered.columns:
-        filtered = filtered[filtered["现价"] <= max_price]
+    if "price" in filtered.columns:
+        filtered = filtered[filtered["price"] <= max_price]
         print(f"排除价格 > {max_price} 元的转债")
 
     # 4. 排除溢价率过高的转债
     max_premium = config.get("max_premium_ratio", 50)
-    if "转股溢价率" in filtered.columns:
-        filtered = filtered[filtered["转股溢价率"] <= max_premium]
+    if "premium_rt" in filtered.columns:
+        filtered = filtered[filtered["premium_rt"] <= max_premium]
         print(f"排除转股溢价率 > {max_premium}% 的转债")
 
     # 5. 排除正股 ST 的转债
     if config.get("exclude_st", True):
-        if "正股名称" in filtered.columns:
-            filtered = filtered[~filtered["正股名称"].str.contains("ST", case=False, na=False)]
+        if "stock_nm" in filtered.columns:
+            filtered = filtered[~filtered["stock_nm"].str.contains("ST", case=False, na=False)]
             print("排除正股 ST 的转债")
 
     print(f"\n过滤后候选标的数量：{len(filtered)}")
