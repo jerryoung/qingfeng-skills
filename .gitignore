@@ -20,3 +20,4 @@ build/
 # 其他
 *.log
 .env
+.DS_Store
