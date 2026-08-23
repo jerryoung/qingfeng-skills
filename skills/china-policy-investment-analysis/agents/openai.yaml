@@ -1,0 +1,4 @@
+interface:
+  display_name: "中国政策纵向投资分析"
+  short_description: "纵向比较政策结构并追踪资金、产业、公司现金流和估值证据"
+  default_prompt: "Use $china-policy-investment-analysis to compare Chinese policy plans and trace priorities through budgets, projects, industry economics, company cash flow, and valuation."
