@@ -1,0 +1,40 @@
+{
+  "skill_name": "qingfeng-investment-framework",
+  "evals": [
+    {
+      "id": 1,
+      "eval_name": "low-pe-all-in-with-missing-evidence",
+      "prompt": "$qingfeng-investment-framework 这家平台公司只有8倍PE，我想全仓。目前只有自媒体用户数据、管理层AI叙事、利润增长15%以及经营现金流下降20%这些信息，也没有提供我的组合和现金需求。",
+      "expected_output": "不将低PE直接判为便宜；指出业务、证据、价值桥和组合输入缺口；公司质量UNPROVEN、价格UNPRICED、组合UNKNOWN，总状态RESEARCH_MORE + NO_ACTION；不给全仓或数值仓位。",
+      "files": []
+    },
+    {
+      "id": 2,
+      "eval_name": "good-company-but-unfavorable-odds",
+      "prompt": "$qingfeng-investment-framework 我已经证明这是一家好公司，但当前价格要求未来五年每股盈利复合增长30%，基准经营情景只支持12%。按青峰策略怎么判？",
+      "expected_output": "分开好公司与好价格；公司质量可为PASS，价格赔率为UNFAVORABLE，总状态WATCHLIST；说明目标回报门槛与基准能力的差距，不用护城河故事补偿赔率不足。",
+      "files": []
+    },
+    {
+      "id": 3,
+      "eval_name": "holding-review-without-original-thesis",
+      "prompt": "$qingfeng-investment-framework 这只股我已经持有两年，但当时没写买入论文。现在跌了25%，帮我判断原论文是否破裂。",
+      "expected_output": "不从成本价或跌幅倒推原论文，也不事后伪造历史；先建立带日期的当前基线论文，状态为RESEARCH_MORE；不判定HOLD_REVIEW、THESIS_DAMAGED或THESIS_BROKEN。",
+      "files": []
+    },
+    {
+      "id": 4,
+      "eval_name": "bank-industry-calibration",
+      "prompt": "$qingfeng-investment-framework 深度分析一家银行，重点看它的自由现金流和净债务/EBITDA。",
+      "expected_output": "先创建银行行业校准卡；明确普通FCF、ROIC和净债务/EBITDA不适用；改用净息差、资产质量、拨备、存款成本、资本充足率与可分配利润。",
+      "files": []
+    },
+    {
+      "id": 5,
+      "eval_name": "capital-allocation-ai-versus-buyback",
+      "prompt": "$qingfeng-investment-framework 公司将原回购预算的一半转投AI，但只说AI很重要，没有披露回报周期或里程碑。应如何分析？",
+      "expected_output": "将新AI项目视为待验证期权，不把战略重要直接当作价值创造；要求投入、成功概率、现金流、回报周期、失败残值和可观察里程碑；与低估回购、还债、分红和其他内部项目的机会成本比较。",
+      "files": []
+    }
+  ]
+}
