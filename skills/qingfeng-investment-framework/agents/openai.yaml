@@ -1,7 +1,7 @@
 interface:
-  display_name: "青峰投资策略"
-  short_description: "五闸门经营因果研究、反向估值、资本配置与组合复盘决策框架"
-  default_prompt: "使用 $qingfeng-investment-framework 按生意、证据、复利、赔率和组合五闸门分析一家公司。"
+  display_name: "清丰投资策略"
+  short_description: "经营研究、反向估值、组合仓位、分批交易计划与持仓跟踪"
+  default_prompt: "使用 $qingfeng-investment-framework 分析一家公司，并在证据准出后生成组合仓位和分批交易计划。"
 
 policy:
   allow_implicit_invocation: true
